@@ -30,8 +30,7 @@
 
 // export default app;
 
-import { Request, Response } from "express";
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -52,12 +51,8 @@ app.use(express.json());
 app.use(logger);
 
 // Health check
-// app.get('/health', (req, res) => {
-//   res.json({ status: 'ok', timestamp: new Date().toISOString() });
-// });
-
-app.get("/health", (req: Request, res: Response) => {
-  res.send("OK");
+app.get('/health', (req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // API Routes
@@ -70,7 +65,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(staticPath));
 
   // SPA catch-all: any route that isn't /api/* returns index.html
-  app.get('*', (req, res) => {
+  app.get('*', (req: Request, res: Response) => {
     res.sendFile(path.resolve(staticPath, 'index.html'));
   });
 }
