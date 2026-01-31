@@ -33,7 +33,6 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path';
 import ticketRoutes from './routes/ticketRoutes';
 import commentRoutes from './routes/commentRoutes';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
@@ -59,18 +58,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/tickets', commentRoutes);
 
-// In production, serve the React build from /frontend/dist
-if (process.env.NODE_ENV === 'production') {
-  const staticPath = path.resolve(__dirname, '..', '..', 'frontend', 'dist');
-  app.use(express.static(staticPath));
-
-  // SPA catch-all: any route that isn't /api/* returns index.html
-  app.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.resolve(staticPath, 'index.html'));
-  });
-}
-
-// Error handling (only reached for non-static routes)
+// Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);
 
