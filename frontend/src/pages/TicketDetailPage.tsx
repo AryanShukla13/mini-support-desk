@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, Trash2, Clock, User } from 'lucide-react';
+import { ArrowLeft, Trash2, Clock } from 'lucide-react';
 import { ticketApi, commentApi } from '../api/client';
 import type { TicketStatus, CreateCommentInput } from '../types';
 import { Loading } from '../components/ui/Loading';

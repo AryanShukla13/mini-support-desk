@@ -78,8 +78,18 @@ import type {
   ApiResponse,
 } from '../types';
 
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '/api' : undefined);
+
+if (!API_URL) {
+  throw new Error(
+    'VITE_API_URL is not set. ' +
+    'Add it as an environment variable in your Vercel project settings. ' +
+    'Example value: https://your-render-backend.onrender.com/api'
+  );
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
